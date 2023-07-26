@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 
 import com.bootcamp.banking.accounts.application.AccountUseCases;
-import com.bootcamp.banking.accounts.domain.dto.AccountRequest;
 import com.bootcamp.banking.accounts.domain.models.Account;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;

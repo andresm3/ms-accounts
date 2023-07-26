@@ -1,6 +1,5 @@
 package com.bootcamp.banking.accounts.application;
 
-import com.bootcamp.banking.accounts.domain.dto.AccountRequest;
 import com.bootcamp.banking.accounts.domain.models.Account;
 import java.math.BigDecimal;
 import reactor.core.publisher.Flux;

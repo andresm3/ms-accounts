@@ -6,7 +6,6 @@ import com.bootcamp.banking.accounts.application.exceptions.CustomInformationExc
 import com.bootcamp.banking.accounts.application.exceptions.CustomNotFoundException;
 import com.bootcamp.banking.accounts.application.utils.Constants;
 import com.bootcamp.banking.accounts.application.utils.Validations;
-import com.bootcamp.banking.accounts.domain.dto.AccountRequest;
 import com.bootcamp.banking.accounts.domain.models.Account;
 import com.bootcamp.banking.accounts.infraestructure.repository.AccountRepository;
 import java.math.BigDecimal;
@@ -50,7 +49,7 @@ public class AccountUseCasesImpl implements AccountUseCases {
                     .map(c -> {
 //                      logger.info("Created a new id = {} for the account with number= {}",
 //                          account.getId(), account.getNumber());
-                      System.out.println(">>Created a new id = {} for the account with number=> Saving "+ account.getNumber());
+                      System.out.println(">>Created a new id = {} for the account with number=> Saving " + account.getNumber());
                       return c;
                     })))
         );
@@ -86,11 +85,11 @@ public class AccountUseCasesImpl implements AccountUseCases {
   }
 
   private Mono<Account> checkIfRequiresCreditCard(Account account) {
-    if ((account.getClient().getType() == Constants.ClientType.PERSONAL
+    if (account.getClient().getType() == Constants.ClientType.PERSONAL
         && account.getClient().getProfile() == Constants.ClientProfile.VIP
-        && account.getTypeAccount().getOption() == Constants.AccountType.SAVING)
-        || (account.getClient().getType() == Constants.ClientType.BUSINESS
-        && account.getClient().getProfile() == Constants.ClientProfile.PYME)) {
+        && account.getTypeAccount().getOption() == Constants.AccountType.SAVING
+        || account.getClient().getType() == Constants.ClientType.BUSINESS
+        && account.getClient().getProfile() == Constants.ClientProfile.PYME) {
       return creditUseCases.consumeClientOwnsCreditCard(
               account.getClient().getDocumentNumber())
           .switchIfEmpty(
