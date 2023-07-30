@@ -14,9 +14,11 @@ public class CreditUseCasesImpl implements CreditUseCases {
   @Autowired
   private WebClient.Builder webClient;
 
+  private final String urlCredit = "http://localhost:8083/credits";
+
   @Override
   public Mono<CreditResponse> consumeClientOwnsCreditCard(String documentNumber) {
-    String urlCredit = "http://localhost:8083/credits";
+
     return webClient
         .build()
         .get()
@@ -29,7 +31,7 @@ public class CreditUseCasesImpl implements CreditUseCases {
 
   @Override
   public Mono<BigDecimal> checkIfClientHasDebts(String documentNumber) {
-    String urlCredit = "http://localhost:8083/credits";
+
     return webClient
         .build()
         .get()

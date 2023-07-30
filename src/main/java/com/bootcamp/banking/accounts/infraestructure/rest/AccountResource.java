@@ -5,8 +5,8 @@ import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 
 import com.bootcamp.banking.accounts.application.AccountUseCases;
 import com.bootcamp.banking.accounts.domain.models.Account;
-import jakarta.validation.Valid;
 import java.math.BigDecimal;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
