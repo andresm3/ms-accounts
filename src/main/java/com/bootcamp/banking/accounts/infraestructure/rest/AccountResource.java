@@ -37,6 +37,11 @@ public class AccountResource {
     return accountUseCases.getAccountById(id);
   }
 
+  @GetMapping("/number/{number}")
+  public Mono<Account> findByNumber(@PathVariable String number) {
+
+    return accountUseCases.getAccountByNumber(number);
+  }
   @GetMapping(value = "/client/documentNumber/{documentNumber}")
   public Flux<Account> listByClientDocumentNumber(@PathVariable String documentNumber) {
     return accountUseCases.getAccountsByClientDocumentNumber(documentNumber);

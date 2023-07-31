@@ -62,6 +62,14 @@ public class AccountUseCasesImpl implements AccountUseCases {
 
   }
 
+
+  @Override
+  public Mono<Account> getAccountByNumber(String number) {
+    return accountRepository.findByNumber(number)
+        .switchIfEmpty(Mono.error(new CustomNotFoundException(MONO_NOT_FOUND_MESSAGE)));
+
+  }
+
   @Override
   public Flux<Account> getAccountsByClientDocumentNumber(String documentNumber) {
     return accountRepository.findByClientDocumentNumber(documentNumber)
