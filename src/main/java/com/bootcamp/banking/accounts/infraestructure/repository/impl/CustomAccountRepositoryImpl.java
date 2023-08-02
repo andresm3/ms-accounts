@@ -43,6 +43,13 @@ public class CustomAccountRepositoryImpl implements CustomAccountRepository {
   }
 
   @Override
+  public Mono<Account> findByClientDocumentNumberAndPosition(String documentNumber) {
+    Query query = new Query(where(FIELD_CLIENT_DOCUMENTNUMBER).is(documentNumber)
+        .and("position").is(0));
+    return mongoTemplate.findOne(query, Account.class);
+  }
+
+  @Override
   public Flux<Account> findByDebitCard(String debitCard) {
     Query query = new Query(where("debitCard").is(debitCard));
     query.with(Sort.by(ASC, "position"));

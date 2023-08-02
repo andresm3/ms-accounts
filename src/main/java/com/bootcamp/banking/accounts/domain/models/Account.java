@@ -1,5 +1,6 @@
 package com.bootcamp.banking.accounts.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 @Document("accounts")
 public class Account {
 
+  @JsonProperty("id")
   private String id;
   private String debitCard;
   private String number;

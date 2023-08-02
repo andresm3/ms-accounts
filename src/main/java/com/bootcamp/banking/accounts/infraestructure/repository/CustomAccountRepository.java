@@ -21,4 +21,6 @@ public interface CustomAccountRepository {
   Mono<Long> countByClientDocumentNumberAndType(String documentNumber, Integer option);
 
   Mono<Account> getLastByDebitCard(String debitCard);
+
+  Mono<Account> findByClientDocumentNumberAndPosition(String documentNumber);
 }

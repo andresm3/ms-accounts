@@ -9,6 +9,7 @@ import com.bootcamp.banking.accounts.application.utils.Validations;
 import com.bootcamp.banking.accounts.domain.models.Account;
 import com.bootcamp.banking.accounts.infraestructure.repository.AccountRepository;
 import java.math.BigDecimal;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -77,6 +78,12 @@ public class AccountUseCasesImpl implements AccountUseCases {
   }
 
   @Override
+  public Mono<Account> getMainAccountByClientDocumentNumber(String documentNumber) {
+    return accountRepository.findByClientDocumentNumberAndPosition(documentNumber)
+        .switchIfEmpty(Mono.error(new CustomNotFoundException(FLUX_NOT_FOUND_MESSAGE)));
+  }
+
+  @Override
   public Flux<Account> getAccountsByClientDebitCard(String debitCard) {
     return accountRepository.findByDebitCard(debitCard)
         .switchIfEmpty(Flux.error(new CustomNotFoundException(FLUX_NOT_FOUND_MESSAGE)));
@@ -130,5 +137,17 @@ public class AccountUseCasesImpl implements AccountUseCases {
           return account;
         })
         .switchIfEmpty(Mono.just(account));
+  }
+
+  @Override
+  public Mono<Account> updateBalance(String id,
+      BigDecimal amount) {
+    return accountRepository.findById(id)
+        .flatMap(account -> {
+          account.setBalance(account.getBalance().add(amount));
+          System.out.println("Update balance for the account with id = {} " + account.getId());
+          return accountRepository.save(account);
+        })
+        .switchIfEmpty(Mono.error(new CustomNotFoundException(MONO_NOT_FOUND_MESSAGE)));
   }
 }
