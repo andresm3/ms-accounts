@@ -9,7 +9,6 @@ import com.bootcamp.banking.accounts.application.utils.Validations;
 import com.bootcamp.banking.accounts.domain.models.Account;
 import com.bootcamp.banking.accounts.infraestructure.repository.AccountRepository;
 import java.math.BigDecimal;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -48,8 +47,6 @@ public class AccountUseCasesImpl implements AccountUseCases {
                 .flatMap(this::setPosition)
                 .flatMap(ac -> accountRepository.save(ac)
                     .map(c -> {
-//                      logger.info("Created a new id = {} for the account with number= {}",
-//                          account.getId(), account.getNumber());
                       System.out.println(">>Created a new id = {} for the account with number=> Saving " + account.getNumber());
                       return c;
                     })))
